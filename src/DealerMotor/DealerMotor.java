@@ -10,6 +10,18 @@ package DealerMotor;
  */
 public class DealerMotor extends javax.swing.JFrame {
     boolean lanjut = false;
+    
+//    arrays
+    String[][] hargaYamaha = {{"Rp66.000.000", "Rp31.615.000", "Rp27.425.000"},
+                              {"Rp25.870.000", "Rp19.790.000", "Rp17.915.000"},
+                              {"Rp39.875.000", "Rp63.450.000", "Rp37.775.900"}};
+    String[][] hargaHonda = {{"Rp32.620.000", "Rp26.539.000", "Rp22.500.000"},
+                           {"Rp19.100.000", "Rp16.020.000", "Rp25.280.000"},
+                           {"Rp37.283.000", "Rp75.656.000", "Rp33.710.000"}};
+    String[][] hargaSuzuki = {{"Rp29.970.000", "Rp18.640.000", "Rp18.340.000"},
+                           {"Rp34.230.000", "Rp30.510.000", "Rp51.090.000"}};
+    String[][] hargaKawasaki = {{"Rp66.900.000", "Rp105.000.000", "Rp129.900.000"}};
+    
     /**
      * Creates new form DealerMotor
      */
@@ -34,6 +46,8 @@ public class DealerMotor extends javax.swing.JFrame {
         jenisMotor = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         produkMotor = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
+        hargaMotor = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -81,6 +95,16 @@ public class DealerMotor extends javax.swing.JFrame {
             }
         });
 
+        jLabel5.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
+        jLabel5.setText("Harga");
+
+        hargaMotor.setEnabled(false);
+        hargaMotor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hargaMotorActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -94,13 +118,15 @@ public class DealerMotor extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel4))
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5))
                         .addGap(33, 33, 33)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(produkMotor, 0, 147, Short.MAX_VALUE)
-                            .addComponent(jenisMotor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(brandMotor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 232, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(produkMotor, javax.swing.GroupLayout.Alignment.LEADING, 0, 192, Short.MAX_VALUE)
+                            .addComponent(jenisMotor, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(brandMotor, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(hargaMotor))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 245, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -120,7 +146,11 @@ public class DealerMotor extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(produkMotor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(152, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(hargaMotor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(117, Short.MAX_VALUE))
         );
 
         pack();
@@ -169,6 +199,44 @@ public class DealerMotor extends javax.swing.JFrame {
     }//GEN-LAST:event_jenisMotorActionPerformed
 
     private void produkMotorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_produkMotorActionPerformed
+        hargaMotor.setText( Integer.toString(brandMotor.getSelectedIndex()) + " " + Integer.toString(jenisMotor.getSelectedIndex()));
+        Object brandMotorInd = brandMotor.getSelectedItem();
+        Object jenisMotorInd = jenisMotor.getSelectedItem();
+        
+        String[] chosen;
+        if(brandMotorInd == "Yamaha"){
+            if(jenisMotorInd == "Matic"){
+                chosen = this.hargaYamaha[0];
+                
+            }else if(jenisMotorInd == "Manual"){
+                chosen = this.hargaYamaha[1];
+                
+            } else {
+                chosen = this.hargaYamaha[2];
+
+            }
+        }else if(brandMotorInd == "Honda"){
+            if(jenisMotorInd == "Matic"){
+                chosen = this.hargaHonda[0];
+            }else if(jenisMotorInd == "Manual"){
+                chosen = this.hargaHonda[1];
+            } else {
+                chosen = this.hargaHonda[2];
+            }
+        }else if(brandMotorInd == "Suzuki"){
+            if(jenisMotorInd == "Matic"){
+                chosen = this.hargaSuzuki[0];
+            }else {
+                chosen = this.hargaSuzuki[1];}
+        }else{
+            chosen = this.hargaKawasaki[0];
+        }
+        for (int i = 0; i < 3; i++) {
+                if(produkMotor.getSelectedIndex() == i){
+                    hargaMotor.setText(chosen[i]);
+                }
+            }
+            hargaMotor.setEditable(true);
         // TODO add your handling code here:
     }//GEN-LAST:event_produkMotorActionPerformed
 
@@ -227,6 +295,10 @@ this.lanjut = false;
         
     }//GEN-LAST:event_jenisMotorFocusLost
 
+    private void hargaMotorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hargaMotorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_hargaMotorActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -264,10 +336,12 @@ this.lanjut = false;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> brandMotor;
+    private javax.swing.JTextField hargaMotor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JComboBox<String> jenisMotor;
     private javax.swing.JComboBox<String> produkMotor;
     // End of variables declaration//GEN-END:variables
